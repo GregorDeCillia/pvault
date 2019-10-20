@@ -18,3 +18,5 @@ Authors@R:
            family = "Cillia",
            role = c("aut", "cre"),
            email = "de.cillia.gregor@gmail.com")
+URL: https://github.com/GregorDeCillia/pvault
+BugReports: https://github.com/GregorDeCillia/pvault/issues
