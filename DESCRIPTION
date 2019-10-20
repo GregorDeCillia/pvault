@@ -1,0 +1,20 @@
+Package: pvault
+Type: Package
+Title: Generate Encripted Project Vaults
+Version: 0.1.0
+Description: Create encrypted project vaults and easily store arbirtary R
+  objects to it.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    openssl,
+    magrittr,
+    usethis,
+    fs
+RoxygenNote: 6.1.1.9000
+Authors@R: 
+    person(given = "Gregor de",
+           family = "Cillia",
+           role = c("aut", "cre"),
+           email = "de.cillia.gregor@gmail.com")

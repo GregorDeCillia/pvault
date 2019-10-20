@@ -1,0 +1,85 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+if (fs::dir_exists(".pvault"))
+  pvault::delete_vault()
+usethis::proj_set()
+```
+
+# pvault
+
+Create encrypted project vaults and easily store arbirtary R objects to it.
+
+## Installation
+
+You can install the development version of pvault from github with:
+
+``` r
+remotes::install_github("GregorDeCillia/pvault")
+```
+
+## Using secrets locally
+
+To initialize a project vault, use `create_vault()`
+
+```{r}
+library(pvault)
+create_vault()
+```
+
+Secrets can be added and retrieved from the vault using `set_secret()` and
+`get_secret()`.
+
+```{r}
+set_secret(head(iris), id = "secret_table")
+get_secret("secret_table")
+```
+
+Other functions can be used to list and delete secrets
+
+```{r}
+set_secret(mtcars, id = "secret_cars")
+list_secrets()
+delete_secret("secret_cars")
+list_secrets()
+```
+
+## How it works
+
+`create_vault()` creates an empty directory `.pvault/vault` to store secrets and
+an rsa keypair in `.pvault/key.rds` for encryption. All secrets are encrypted
+and decrypted with the key in `.pvault/key.rds`.
+
+Vaults are scoped to the current usethis project. See `?usethis::proj_get`.
+
+## Sharing vaults
+
+In order to share a vault, lock it with `lock_vault()` and transfer the
+contents of `.pvault`. As long as the vault is locked, no secrets can be
+set or read.
+
+```{r,error=TRUE}
+lock_vault("vault_password")
+get_secret("secret_table")
+unlock_vault("wrong_password")
+get_secret("secret_table")
+unlock_vault("vault_password")
+get_secret("secret_table")
+```
+
+## Cleanup
+
+```{r}
+delete_vault()
+```
+
